@@ -1,10 +1,12 @@
 package com.backend.server.dto;
 
+import java.util.List;
+
 public class AddResourceRequest {
 
     private String username;
     private String resource;
-    private String subResource;
+    private List<String> subResources;
     private String description;
 
     public String getDescription() {
@@ -23,12 +25,12 @@ public class AddResourceRequest {
         this.resource = resource;
     }
 
-    public String getSubResource() {
-        return subResource;
+    public List<String> getSubResources() {
+        return subResources;
     }
 
-    public void setSubResource(String subResource) {
-        this.subResource = subResource;
+    public void setSubResources(List<String> subResources) {
+        this.subResources = subResources;
     }
 
     public String getUsername() {

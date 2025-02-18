@@ -25,12 +25,11 @@ public class ResourceService {
 
         query.setParameter("Username", resourceRequest.getUsername());
         query.setParameter("Resource", resourceRequest.getResource());
-        query.setParameter("SubResource", resourceRequest.getSubResource());
+        query.setParameter("SubResource", resourceRequest.getSubResources().toString());
         query.setParameter("Description", resourceRequest.getDescription());
 
         query.execute();
 
         return (String) query.getOutputParameterValue("StatusMessage");
-
     }
 }
