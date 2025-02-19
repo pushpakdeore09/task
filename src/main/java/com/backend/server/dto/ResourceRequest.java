@@ -2,7 +2,7 @@ package com.backend.server.dto;
 
 import java.util.List;
 
-public class AddResourceRequest {
+public class ResourceRequest {
 
     private String username;
     private String resource;
