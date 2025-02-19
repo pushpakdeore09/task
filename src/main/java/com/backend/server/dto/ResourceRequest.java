@@ -1,8 +1,11 @@
 package com.backend.server.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 public class ResourceRequest {
+
 
     private String username;
     private String resource;

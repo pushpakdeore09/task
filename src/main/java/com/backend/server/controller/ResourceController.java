@@ -31,11 +31,21 @@ public class ResourceController {
         }
     }
 
-    @GetMapping("/get-resource/{username}")
-    public ResponseEntity<?> getResource(@PathVariable String username){
+    @GetMapping("/get-resource-by-name/{resource}")
+    public ResponseEntity<?> getResourceByResource(@PathVariable String resource){
         try{
-            List<ResourceRequest> resourceRequests = resourceService.getResource(username);
+            List<ResourceRequest> resourceRequests = resourceService.getResourceByResource(resource);
             return new ResponseEntity<>(resourceRequests, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/get-resource-by-username/{username}")
+    public ResponseEntity<?> getResourceByUsername(@PathVariable String username){
+        try{
+            Map<String, String> response = resourceService.getResourceByUsername(username);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
