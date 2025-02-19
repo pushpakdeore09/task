@@ -31,10 +31,10 @@ public class ResourceController {
         }
     }
 
-    @GetMapping("/get-resource/{resource}")
-    public ResponseEntity<?> getResource(@PathVariable String resource){
+    @GetMapping("/get-resource/{username}")
+    public ResponseEntity<?> getResource(@PathVariable String username){
         try{
-            List<ResourceRequest> resourceRequests = resourceService.getResource(resource);
+            List<ResourceRequest> resourceRequests = resourceService.getResource(username);
             return new ResponseEntity<>(resourceRequests, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

@@ -39,11 +39,11 @@ public class ResourceService {
         return (String) query.getOutputParameterValue("StatusMessage");
     }
 
-    public List<ResourceRequest> getResource(String resource) throws JsonProcessingException {
+    public List<ResourceRequest> getResource(String username) throws JsonProcessingException {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("Get_Resource");
 
-        query.registerStoredProcedureParameter("Resource", String.class, ParameterMode.IN);
-        query.setParameter("Resource", resource);
+        query.registerStoredProcedureParameter("Username", String.class, ParameterMode.IN);
+        query.setParameter("Username", username);
 
         query.execute();
 
