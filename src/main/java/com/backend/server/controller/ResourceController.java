@@ -44,7 +44,7 @@ public class ResourceController {
     @GetMapping("/get-resource-by-username/{username}")
     public ResponseEntity<?> getResourceByUsername(@PathVariable String username){
         try{
-            Map<String, String> response = resourceService.getResourceByUsername(username);
+            Map<String, List<String>> response = resourceService.getResourceByUsername(username);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

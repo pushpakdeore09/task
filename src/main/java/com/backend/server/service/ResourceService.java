@@ -60,17 +60,17 @@ public class ResourceService {
         return resourceRequests;
     }
 
-    public Map<String, String> getResourceByUsername(String username){
+    public Map<String, List<String>> getResourceByUsername(String username){
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("GetResourceByUsername");
         query.registerStoredProcedureParameter("Username", String.class, ParameterMode.IN);
         query.setParameter("Username", username);
 
         query.execute();
 
-        String resource = query.getSingleResult().toString();
+        List<String> resources = query.getResultList();
 
-        Map<String, String> result = new HashMap<>();
-        result.put("resource", resource);
+        Map<String, List<String>> result = new HashMap<>();
+        result.put("resource", resources);
         return result;
 
     }
