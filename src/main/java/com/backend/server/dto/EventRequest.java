@@ -5,7 +5,7 @@ public class EventRequest {
     private String name;
     private String username;
     private String title;
-    private boolean isPaidFree;
+    private boolean is_Paid_Free;
     private String type;
     private String image;
     private String date;
@@ -26,12 +26,12 @@ public class EventRequest {
         this.image = image;
     }
 
-    public boolean isPaidFree() {
-        return isPaidFree;
+    public boolean getIs_Paid_Free() {
+        return is_Paid_Free;
     }
 
-    public void setPaidFree(boolean paidFree) {
-        isPaidFree = paidFree;
+    public void setIs_Paid_Free(boolean is_Paid_Free) {
+        this.is_Paid_Free = is_Paid_Free;
     }
 
     public String getName() {
