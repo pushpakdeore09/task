@@ -48,3 +48,10 @@ BEGIN
         THROW;
     END CATCH
 END;
+
+-- sp to fetch all events
+create procedure GetAllEvents
+as
+begin
+	select * from Event
+end;
