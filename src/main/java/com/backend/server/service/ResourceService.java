@@ -48,13 +48,14 @@ public class ResourceService {
         List<ResourceRequest> resourceRequests = new ArrayList<>();
         ResourceRequest resourceRequest = new ResourceRequest();
         for(Object[] result: results){
-            resourceRequest.setUsername((String) result[0]);
 
-            String subResource = (String) result[1];
+            resourceRequest.setUsername((String) result[0]);
+            resourceRequest.setResource((String) result[1]);
+            String subResource = (String) result[2];
             List<String> subResources = Arrays.asList(subResource.replace("[", "").replace("]","").split(", "));
 
             resourceRequest.setSubResources(subResources);
-            resourceRequest.setDescription((String) result[2]);
+            resourceRequest.setDescription((String) result[3]);
         }
         resourceRequests.add(resourceRequest);
         return resourceRequests;
