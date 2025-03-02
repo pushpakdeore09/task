@@ -52,11 +52,11 @@ BEGIN
 END;
 
 -- sp to get data from Resource table based on Resource attribute
-create procedure GetResourceByResourcename
+create procedure GetResourceByResource
 	@Resource nvarchar(255)
 as
 begin
-	select Username, SubResource, Description
+	select Username, Resource, SubResource, Description
 	from Resource
 	where Resource = @Resource
 end;
