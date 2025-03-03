@@ -37,7 +37,7 @@ public class EventRequest {
         this.image = image;
     }
 
-    public Boolean getIs_Paid_Free() {
+    public Boolean isIs_Paid_Free() {
         return is_Paid_Free;
     }
 

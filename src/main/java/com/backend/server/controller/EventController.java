@@ -13,6 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class EventController {
 
     @Autowired
@@ -37,7 +38,6 @@ public class EventController {
             List<EventRequest> events = eventService.getAllEvents();
             return new ResponseEntity<>(events, HttpStatus.OK);
         } catch (Exception e){
-            e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

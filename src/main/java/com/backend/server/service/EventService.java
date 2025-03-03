@@ -19,7 +19,6 @@ public class EventService {
     public String addEvent(EventRequest eventRequest) {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery("Add_Event");
 
-
         query.registerStoredProcedureParameter("Name", String.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("Username", String.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("Title", String.class, ParameterMode.IN);
@@ -33,7 +32,7 @@ public class EventService {
         query.setParameter("Name", eventRequest.getName());
         query.setParameter("Username", eventRequest.getUsername());
         query.setParameter("Title", eventRequest.getTitle());
-        query.setParameter("Is_Paid_Free", eventRequest.getIs_Paid_Free());
+        query.setParameter("Is_Paid_Free", eventRequest.isIs_Paid_Free());
         query.setParameter("Type", eventRequest.getType());
         query.setParameter("Image", eventRequest.getImage());
         query.setParameter("Date", eventRequest.getDate());
