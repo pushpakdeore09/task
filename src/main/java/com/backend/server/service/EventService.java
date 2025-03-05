@@ -65,4 +65,28 @@ public class EventService {
         }
         return eventRequests;
     }
+
+    public String updateEvent(EventRequest eventRequest){
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("Update_Event");
+
+        query.registerStoredProcedureParameter("Name", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("Title", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("Is_Paid_Free", Boolean.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("Type", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("Image", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("Date", String.class, ParameterMode.IN);
+
+        query.registerStoredProcedureParameter("StatusMessage", String.class, ParameterMode.OUT);
+
+        query.setParameter("Name", eventRequest.getName());
+        query.setParameter("Title", eventRequest.getTitle());
+        query.setParameter("Is_Paid_Free", eventRequest.isIs_Paid_Free());
+        query.setParameter("Type", eventRequest.getType());
+        query.setParameter("Image", eventRequest.getImage());
+        query.setParameter("Date", eventRequest.getDate());
+
+        query.execute();
+
+        return (String) query.getOutputParameterValue("StatusMessage");
+    }
 }

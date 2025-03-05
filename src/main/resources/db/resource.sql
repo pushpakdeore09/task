@@ -70,3 +70,33 @@ begin
 	where Username = @Username
 end;
 
+-- sp to update Resource
+CREATE PROCEDURE Update_Resource
+    @Resource NVARCHAR(255),
+    @SubResource NVARCHAR(MAX),
+    @Description NVARCHAR(MAX),
+    @StatusMessage NVARCHAR(255) OUTPUT
+AS
+BEGIN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM Resource WHERE Resource = @Resource)
+        BEGIN
+            UPDATE Resource
+            SET
+                SubResource = @SubResource,
+                Description = @Description
+            WHERE
+                Resource = @Resource;
+
+            SET @StatusMessage = 'Success';
+        END
+        ELSE
+        BEGIN
+            SET @StatusMessage = 'Failed';
+        END
+    END TRY
+    BEGIN CATCH
+        SET @StatusMessage = ERROR_MESSAGE();
+    END CATCH
+END;
+

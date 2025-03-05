@@ -73,6 +73,23 @@ public class ResourceService {
         Map<String, List<String>> result = new HashMap<>();
         result.put("resource", resources);
         return result;
+    }
 
+    public String updateResource(ResourceRequest resourceRequest){
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("Update_Resource");
+
+        query.registerStoredProcedureParameter("Resource", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("SubResource", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("Description", String.class, ParameterMode.IN);
+
+        query.registerStoredProcedureParameter("StatusMessage", String.class, ParameterMode.OUT);
+
+        query.setParameter("Resource", resourceRequest.getResource());
+        query.setParameter("SubResource", resourceRequest.getSubResources().toString());
+        query.setParameter("Description", resourceRequest.getDescription());
+
+        query.execute();
+
+        return (String) query.getOutputParameterValue("StatusMessage");
     }
 }

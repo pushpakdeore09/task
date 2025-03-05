@@ -41,4 +41,17 @@ public class EventController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/update-event")
+    public ResponseEntity<Map<String, String>> updateEvent(@RequestBody EventRequest eventRequest){
+        Map<String, String> response = new HashMap<>();
+        try{
+            String status = eventService.updateEvent(eventRequest);
+            response.put("message", status);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e){
+            response.put("error", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

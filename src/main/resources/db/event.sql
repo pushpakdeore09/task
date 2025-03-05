@@ -55,3 +55,39 @@ as
 begin
 	select * from Event
 end;
+
+-- sp to update event
+CREATE PROCEDURE Update_Event
+    @Name NVARCHAR(255),
+    @Title NVARCHAR(255),
+    @Is_Paid_Free BIT,
+    @Type NVARCHAR(50),
+    @Image NVARCHAR(MAX),
+    @Date NVARCHAR(50),
+    @StatusMessage NVARCHAR(255) OUTPUT
+AS
+BEGIN
+    BEGIN TRY
+        IF EXISTS (SELECT 1 FROM Event WHERE Name = @Name)
+        BEGIN
+            UPDATE Event
+            SET
+                Title = @Title,
+                Is_Paid_Free = @Is_Paid_Free,
+                Type = @Type,
+                Image = @Image,
+                Date = @Date
+            WHERE
+                Name = @Name;
+
+            SET @StatusMessage = 'Success';
+        END
+        ELSE
+        BEGIN
+            SET @StatusMessage = 'Failed';
+        END
+    END TRY
+    BEGIN CATCH
+        SET @StatusMessage = ERROR_MESSAGE();
+    END CATCH
+END;
