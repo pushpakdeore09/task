@@ -95,5 +95,24 @@ BEGIN
         SET @StatusMessage = ERROR_MESSAGE();
     END CATCH
 END;
+-- sp to get certificate
+CREATE PROCEDURE Get_Certificate
+    @Username VARCHAR(8),
+    @Certificate_ID VARCHAR(2)
+AS
+BEGIN
+    SELECT
+        Username,
+        Certificate_ID,
+        ImageUrl,
+        IssuedBy,
+        Remark
+    FROM
+        Certificate
+    WHERE
+        Username = @Username
+    AND
+        Certificate_ID = @Certificate_ID;
+END
 
 select * from Certificate;

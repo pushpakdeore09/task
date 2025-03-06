@@ -71,4 +71,26 @@ public class CertificateService {
         query.execute();
         return (String) query.getOutputParameterValue("StatusMessage");
     }
+
+    public Certificate getCertificate(String username, String certificateId){
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("Get_Certificate");
+
+        query.registerStoredProcedureParameter("Username", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("Certificate_Id", String.class, ParameterMode.IN);
+
+        query.setParameter("Username", username);
+        query.setParameter("Certificate_Id", certificateId);
+
+        query.execute();
+
+        Object[] result = (Object[]) query.getSingleResult();
+        Certificate certificate = new Certificate();
+        certificate.setUsername((String) result[0]);
+        certificate.setCertificateId((String) result[1]);
+        certificate.setImageUrl((String) result[2]);
+        certificate.setIssuedBy((String) result[3]);
+        certificate.setRemark((String) result[4]);
+
+        return certificate;
+    }
 }

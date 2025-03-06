@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class CertificateController {
 
     @Autowired
@@ -50,6 +51,18 @@ public class CertificateController {
             String status = certificateService.updateCertificate(certificate);
             response.put("message", status);
             return new ResponseEntity<>(response, HttpStatus.OK);
+        }catch (Exception e){
+            response.put("error", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/get-certificate/{username}/{certificateId}")
+    public ResponseEntity<?> getCertificate(@PathVariable String username, @PathVariable String certificateId){
+        Map<String, Object> response = new HashMap<>();
+        try{
+            Certificate certificate = certificateService.getCertificate(username, certificateId);
+            return new ResponseEntity<>(certificate, HttpStatus.OK);
         }catch (Exception e){
             response.put("error", e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
