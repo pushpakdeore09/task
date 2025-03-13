@@ -1,9 +1,7 @@
 package com.backend.server.controller;
 
-
-import com.backend.server.dto.User;
-import com.backend.server.dto.UserProject;
-import com.backend.server.service.UserProjectService;
+import com.backend.server.dto.UserPost;
+import com.backend.server.service.UserPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +13,17 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200/")
-public class UserProjectController {
+public class UserPostController {
+
 
     @Autowired
-    private UserProjectService userProjectService;
+    private UserPostService userPostService;
 
-    @PutMapping("/user-project/update-contributors")
-    public ResponseEntity<Map<String, String>> updateContributors(@RequestBody UserProject userProject){
+    @PostMapping("/add-post")
+    public ResponseEntity<?> addPost(@RequestBody UserPost userPost){
         Map<String, String> response = new HashMap<>();
         try{
-            String status = userProjectService.updateContributors(userProject);
+            String status = userPostService.addPost(userPost);
             response.put("message", status);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e){
@@ -33,12 +32,12 @@ public class UserProjectController {
         }
     }
 
-    @GetMapping("/login/{email}")
-    public ResponseEntity<?> login(@PathVariable String email){
-        Map<String, Object> response = new HashMap<>();
+    @PutMapping("/update-likes/{title}/{action}")
+    public ResponseEntity<?> updateLike(@PathVariable String title, @PathVariable String action){
+        Map<String, String> response = new HashMap<>();
         try{
-            String username = userProjectService.login(email);
-            response.put("username", username);
+            String status = userPostService.updateLikes(title, action);
+            response.put("message", status);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e){
             response.put("error", e.getMessage());

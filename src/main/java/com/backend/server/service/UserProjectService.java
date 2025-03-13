@@ -1,5 +1,6 @@
 package com.backend.server.service;
 
+import com.backend.server.dto.User;
 import com.backend.server.dto.UserProject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
@@ -28,5 +29,16 @@ public class UserProjectService {
         query.execute();
 
         return (String) query.getOutputParameterValue("StatusMessage");
+    }
+
+    public String login(String email){
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("Login");
+        query.registerStoredProcedureParameter("Email", String.class, ParameterMode.IN);
+
+        query.setParameter("Email", email);
+
+        query.execute();
+
+        return (String) query.getSingleResult();
     }
 }
